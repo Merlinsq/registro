@@ -3,6 +3,15 @@
     Created on : 22 mar 2023, 20:47:47
     Author     : msand
 --%>
+<link rel="stylesheet" type="text/css" href="estilos2.css">
+
+<% if (session.getAttribute("usuario") == null) { %>
+  <% response.sendRedirect("ingreso.jsp"); %>
+<% } else { %>
+  <!-- Código para página de contenido -->
+
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,6 +48,12 @@
   <body>
     <h1>Registro eliminado</h1>
     <p>El registro ha sido eliminado exitosamente.</p>
-    <p><a href="consultar.jsp">Volver a la página de consulta</a></p>
+    <img src="imagenlogo.png" alt="Imagen de fondo" id="imagen_fondo">
+    <form action="consultar.jsp">
+  <button type="submit">Volver a la página de consulta</button>
+  
+</form>
+
   </body>
 </html>
+<% } %>

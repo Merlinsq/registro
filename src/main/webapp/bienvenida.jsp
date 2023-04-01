@@ -1,111 +1,23 @@
+<link rel="stylesheet" type="text/css" href="estilos.css">
+<link rel="icon" href="imagenlogo.png" type="image/png">
+
+<% if (session.getAttribute("usuario") == null) { %>
+  <% response.sendRedirect("ingreso.jsp"); %>
+<% } else { %>
 
 <html>
-  <head>
-      <style>
-          
-          body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f2f2f2;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
-
-h1 {
-  font-size: 40px;
-  font-weight: bold;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px #ccc;
-}
-
-h4 {
-  font-size: 10px;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px #ccc;
-}
-
-p {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
-form {
-  margin: 0 auto;
-  width: 400px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-
-label {
-  display: inline-block;
-  width: 120px;
-  text-align: left;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="tel"],
-input[type="password"] {
-  width: 200px;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-input[type="submit"],
-input[type="reset"] {
-  padding: 10px 20px;
-  background-color: #006FB0;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-input[type="submit"]:hover,
-input[type="reset"]:hover {
-  background-color: #3e8e41;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #006FB0;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3e8e41;
-}
-
-      </style>
-      
+  <head>   
     <title>Bienvenida</title>
   </head>
   
-  <body>
-      
+  <body>  
+
     <header>
     <h1>Bienvenido</h1>
+    <img src="imagenlogo.png" alt="Imagen de fondo" id="imagen_fondo"> 
     
-    <h1>Página de Registro de la Iglesia Fuente del Cielo</h1>
-  
+    
+    <h2>Página de Registro de la Iglesia Fuente del Cielo</h2>
   </header>
     <p>Por favor, rellene el siguiente formulario de registro</p>
     <form action="registro.jsp" method="post">
@@ -148,15 +60,28 @@ button:hover {
     
     <br>
     <main>
-    
-    
     <section id="consultar">
       <h2>Consultar registros</h2>
       <a href="consultar.jsp"><button>Consultar</button></a>
     </section>
+      
+     <!-- Código para cerrar la Sesi[on --> 
+    <div id="cerrar-sesion">
+        <button id="cerrar-sesion-btn">Cerrar sesión</button>
+    </div>
+    <script>
+            const cerrarSesionBtn = document.getElementById('cerrar-sesion-btn');
+            cerrarSesionBtn.addEventListener('click', function() {
+            window.location.href = 'cerrarSesion.jsp';
+            });
+    </script>
+    <!-- Código para cerrar la Sesi[on --> 
+    
+    
   </main>
  <footer>
-    <p>Versión 1.0 Desarrollado por MLS</p>
+    <p>Versión 1.0</p>
   </footer>
   </body>
 </html>
+<% } %>

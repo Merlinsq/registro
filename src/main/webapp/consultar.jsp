@@ -3,6 +3,15 @@
     Created on : 22 mar 2023, 20:52:35
     Author     : msand
 --%>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="estilos2.css">
+<link rel="icon" href="imagenlogo.png" type="image/png">
+
+
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -27,95 +36,39 @@
 
 <html>
   <head>
-      <style>body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f2f2f2;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
-
-h1 {
-  font-size: 36px;
-  font-weight: bold;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px #ccc;
-}
-
-p {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
-form {
-  margin: 0 auto;
-  width: 400px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-
-label {
-  display: inline-block;
-  width: 120px;
-  text-align: left;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="tel"],
-input[type="password"] {
-  width: 200px;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-input[type="submit"],
-input[type="reset"] {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-input[type="submit"]:hover,
-input[type="reset"]:hover {
-  background-color: #3e8e41;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3e8e41;
-}
-</style>
-    <title>Consulta de registros</title>
+     
+    <title>Consulta de Registros</title>
   </head>
   <body>
-    <h1>Consulta de registros</h1>
-    <table border="1">
+    <h1>Consulta de Registros</h1>
+
+    <!-- Código para cerrar la Sesi[on --> 
+    <div id="cerrar-sesion">
+        <button id="cerrar-sesion-btn">Cerrar sesión</button>
+    </div>
+    <script>
+            const cerrarSesionBtn = document.getElementById('cerrar-sesion-btn');
+            cerrarSesionBtn.addEventListener('click', function() {
+            window.location.href = 'cerrarSesion.jsp';
+            });
+    </script>
+    
+    <script>
+            $(document).ready(function() {
+            $('#miTabla').DataTable({
+            "order": [[ 0, "asc" ]], // Ordenar por la primera columna de forma ascendente
+            "columnDefs": [
+              { "orderable": true, "targets": [ 0, 1, 2 ] } // Las columnas 0, 1 y 2 pueden ordenarse
+            ]
+            });
+            });
+
+    </script>
+    <!-- Código para cerrar la Sesi[on --> 
+    
+    <table class="table" id="miTabla"
+     border="1"
+      style="margin:auto;">
       <tr>
         <th>Nombre</th>
         <th>Apellido</th>
@@ -123,7 +76,8 @@ button:hover {
         <th>Teléfono</th>
         <th>Email</th>
         <th>Dirección</th>
-        <th>Acciones</th>
+        <th>Modificar</th>
+        <th>Eliminar</th>
       </tr>
       <% while (rs.next()) { %>
       <tr>
@@ -138,15 +92,23 @@ button:hover {
             <input type="hidden" name="id" value="<%= rs.getString("id") %>">
             <input type="submit" value="Modificar">
           </form>
-          <form action="eliminar.jsp" method="post">
+            <td>
+            <form action="eliminar.jsp" method="post">
             <input type="hidden" name="id" value="<%= rs.getString("id") %>">
             <input type="submit" value="Eliminar">
           </form>
+            </td>
         </td>
       </tr>
       <% } %>
     </table>
-    <p><a href="bienvenida.jsp">Volver a la página de bienvenida</a></p>
+  <img src="imagenlogo.png" alt="Imagen de fondo" id="imagen_fondo">
+    
+      <section id="consultar1">
+     
+      <a href="bienvenida.jsp"><button>Regresar</button></a>
+    </section>
+
   </body>
 </html>
 

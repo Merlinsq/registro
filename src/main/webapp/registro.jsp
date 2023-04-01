@@ -1,7 +1,18 @@
+ <!--Se importa la hoja de estilos donde se le da forma y color  -->
+<link rel="stylesheet" type="text/css" href="estilos.css">
+<link rel="icon" href="imagenlogo.png" type="image/png">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+         
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@ page import="java.sql.*" %>
+
+<!--Se se Verifica si la seción esta iniciada  -->
+<% if (session.getAttribute("usuario") == null) { %>
+  <% response.sendRedirect("ingreso.jsp"); %>
+<% } else { %>
+
+
 <%
    Class.forName("com.mysql.jdbc.Driver");
 %>
@@ -59,103 +70,10 @@
 
 <html>
   <head>
-      <style>
-          
-          body {
-  font-family: Arial, sans-serif;
-  text-align: center;
-  background-color: #f2f2f2;
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
-
-h1 {
-  font-size: 40px;
-  font-weight: bold;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px #ccc;
-}
-
-h4 {
-  font-size: 10px;
-  margin-top: 50px;
-  margin-bottom: 20px;
-  text-shadow: 2px 2px #ccc;
-}
-
-p {
-  font-size: 20px;
-  margin-bottom: 20px;
-}
-
-form {
-  margin: 0 auto;
-  width: 400px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-
-label {
-  display: inline-block;
-  width: 120px;
-  text-align: left;
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-input[type="text"],
-input[type="date"],
-input[type="tel"],
-input[type="password"] {
-  width: 200px;
-  padding: 5px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-}
-
-input[type="submit"],
-input[type="reset"] {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-input[type="submit"]:hover,
-input[type="reset"]:hover {
-  background-color: #3e8e41;
-}
-
-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #3e8e41;
-}
-
-      </style>
     <title>Registro completado</title>
   </head>
   <body>
+      <img src="imagenlogo.png" alt="Imagen de fondo" id="imagen_fondo">
     <h1>Registro completado</h1>
     <p>Gracias por registrarte. </p>
     <h2>Tus datos son:</h2>
@@ -173,3 +91,4 @@ button:hover {
   </body>
 </html>
 
+<% } %>
