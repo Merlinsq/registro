@@ -1,3 +1,4 @@
+<%@page import="com.mycompany.registro.resources.ConexionBD"%>
 <%@page import="java.io.InputStream"%>
 <%@page import="java.io.FileInputStream"%>
 <%@page import="java.util.Properties"%>
@@ -9,19 +10,10 @@
 %>
 
 <%
-  // Cargar los valores de configuración desde el archivo
-    Properties propiedades = new Properties();
-    InputStream entrada = request.getServletContext().getResourceAsStream("/WEB-INF/config/config.properties");
-    propiedades.load(entrada);  
-       
-  // Obtener los valores de configuración
-    String url = propiedades.getProperty("db.url");
-    String usuario = propiedades.getProperty("db.user");
-    String password = propiedades.getProperty("db.password");
-    Connection conexion = DriverManager.getConnection(url, usuario, password);
-  
-  
+ConexionBD conexionBD = new ConexionBD(getServletContext());
+conexionBD.conectar();
 
+ Connection conexion = conexionBD.getConexion();
 
     // Obtener los datos del formulario
 String email = request.getParameter("email");

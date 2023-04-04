@@ -3,6 +3,7 @@
     Created on : 22 mar 2023, 20:47:47
     Author     : msand
 --%>
+<%@page import="com.mycompany.registro.resources.ConexionBD"%>
 <link rel="stylesheet" type="text/css" href="estilos2.css">
 
 <% if (session.getAttribute("usuario") == null) { %>
@@ -22,10 +23,10 @@
 
 <%
   // Establecer conexión con la base de datos
-  String url = "jdbc:mysql://localhost:3306/miembros_fuente";
-  String usuario = "root";
-  String password = "12345678";
-  Connection conexion = DriverManager.getConnection(url, usuario, password);
+ConexionBD conexionBD = new ConexionBD(getServletContext());
+conexionBD.conectar();
+
+ Connection conexion = conexionBD.getConexion();
   
   // Obtener el id del usuario a eliminar
   int id = Integer.parseInt(request.getParameter("id"));

@@ -1,4 +1,5 @@
- <!--Se importa la hoja de estilos donde se le da forma y color  -->
+ <%@page import="com.mycompany.registro.resources.ConexionBD"%>
+<!--Se importa la hoja de estilos donde se le da forma y color  -->
 <link rel="stylesheet" type="text/css" href="estilos.css">
 <link rel="icon" href="imagenlogo.png" type="image/png">
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,17 +13,12 @@
   <% response.sendRedirect("ingreso.jsp"); %>
 <% } else { %>
 
-
-<%
-   Class.forName("com.mysql.jdbc.Driver");
-%>
-
 <%
   // Establecer conexión con la base de datos
-  String url = "jdbc:mysql://localhost:3306/miembros_fuente";
-  String usuario = "root";
-  String password = "12345678";
-  Connection conexion = DriverManager.getConnection(url, usuario, password);
+ConexionBD conexionBD = new ConexionBD(getServletContext());
+conexionBD.conectar();
+
+ Connection conexion = conexionBD.getConexion();
   
   // Obtener los datos del formulario
   String nombre = request.getParameter("nombre");
@@ -45,7 +41,7 @@
   telefono = telefono.replaceAll("\\\\", "\\\\\\\\")
                        .replaceAll("\\\"", "\\\\\"")
                        .replaceAll("\\'", "\\\\\\'");
-  telefono = email.replaceAll("\\\\", "\\\\\\\\")
+  email = email.replaceAll("\\\\", "\\\\\\\\")
                        .replaceAll("\\\"", "\\\\\"")
                        .replaceAll("\\'", "\\\\\\'");
   direccion = direccion.replaceAll("\\\\", "\\\\\\\\")
@@ -87,7 +83,7 @@
     </ul>
     
     <a href="bienvenida.jsp"><button>Regresar</button></a>
-    <a href="buscar.jsp"><button>Modificar</button></a>
+    <a href="consultar.jsp"><button>Modificar</button></a>
   </body>
 </html>
 

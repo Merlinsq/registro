@@ -1,3 +1,4 @@
+<%@page import="com.mycompany.registro.resources.ConexionBD"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          
 pageEncoding="UTF-8"%>
@@ -8,20 +9,12 @@ pageEncoding="UTF-8"%>
 <% if (session.getAttribute("usuario") == null) { %>
   <% response.sendRedirect("ingreso.jsp"); %>
 <% } else { %>
-  <!-- Código para página de contenido -->
-
-
 
 <%
-Class.forName("com.mysql.jdbc.Driver");
-%>
+ConexionBD conexionBD = new ConexionBD(getServletContext());
+conexionBD.conectar();
 
-<%
-// Establecer conexión con la base de datos
-String url = "jdbc:mysql://localhost:3306/miembros_fuente";
-String usuario = "root";
-String password = "12345678";
-Connection conexion = DriverManager.getConnection(url, usuario, password);
+ Connection conexion = conexionBD.getConexion();
 
 // Obtener los datos del formulario
 int id = Integer.parseInt(request.getParameter("id"));

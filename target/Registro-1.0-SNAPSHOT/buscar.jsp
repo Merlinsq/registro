@@ -1,4 +1,8 @@
+<%@page import="java.io.InputStream"%>
+<%@page import="java.util.Properties"%>
 <%@page import="java.sql.*" %>
+<%@page import="com.mycompany.registro.resources.ConexionBD"%>
+
 <link rel="stylesheet" type="text/css" href="estilos.css">
 <link rel="icon" href="imagenlogo.png" type="image/png">
 
@@ -6,33 +10,18 @@
 <% if (session.getAttribute("usuario") == null) { %>
   <% response.sendRedirect("ingreso.jsp"); %>
 <% } else { %>
-  <!-- Código para página de contenido -->
-
-
-
-
+ 
 <%
-// Establecer la conexión a la base de datos
-Connection conn = null;
-String url = "jdbc:mysql://localhost:3306/miembros_fuente";
-String user = "root";
-String password = "12345678";
-
-try {
-    Class.forName("com.mysql.jdbc.Driver");
-    conn = DriverManager.getConnection(url, user, password);
-} catch (ClassNotFoundException e) {
-    e.printStackTrace();
-} catch (SQLException e) {
-    e.printStackTrace();
-}
+// Crear una instancia de ConexionBD y establecer una conexión
+ConexionBD conexionBD = new ConexionBD(getServletContext());
+conexionBD.conectar();
 
 // Obtener el id del usuario a buscar
 int id = Integer.parseInt(request.getParameter("id"));
 
 // Realizar la búsqueda del usuario en la base de datos
 String query = "SELECT * FROM usuarios WHERE id = ?";
-PreparedStatement pstmt = conn.prepareStatement(query);
+PreparedStatement pstmt = conexionBD.getConexion().prepareStatement(query);
 pstmt.setInt(1, id);
 ResultSet rs = pstmt.executeQuery();
 
@@ -85,7 +74,7 @@ if (rs.next()) {
 // Cerrar la conexión a la base de datos
 rs.close();
 pstmt.close();
-conn.close();
+conexionBD.desconectar();
 %>
 
 <% } %>

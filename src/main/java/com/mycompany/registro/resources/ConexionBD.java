@@ -7,13 +7,21 @@ import java.util.Properties;
 import java.io.InputStream;
 import java.io.IOException;
 
+import javax.servlet.ServletContext;
+
 public class ConexionBD {
     private Connection conexion;
+    private ServletContext contexto;
+
+    public ConexionBD(ServletContext contexto) {
+        this.contexto = contexto;
+    }
 
     public void conectar() {
         try {
+            // Cargar los valores de configuración desde el archivo
             Properties propiedades = new Properties();
-            InputStream entrada = getClass().getClassLoader().getResourceAsStream("/WEB-INF/config/config.properties");
+            InputStream entrada = contexto.getResourceAsStream("/WEB-INF/config/config.properties");
             propiedades.load(entrada);
             String url = propiedades.getProperty("db.url");
             String usuario = propiedades.getProperty("db.user");
